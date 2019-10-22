@@ -1,0 +1,7 @@
+<form *ngIf="userToken === null">
+    <input name="username" type="text" [(ngModel)]="username">
+    <input name="password" type="text" [(ngModel)]="password">
+    <button (click)="doLogin()">Go</button>
+</form>
+
+<div *ngIf="userToken !== null">Ok</div>

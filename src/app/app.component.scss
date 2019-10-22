@@ -1,0 +1,18 @@
+$color-blue: #0077c8;
+$color-white: #ffffff;
+
+nav{
+    display: block;
+    background-color: $color-blue;
+
+    h1{
+        display: inline-block;
+        vertical-align: top;
+        color: $color-white;
+    }
+
+    ul{
+        display: inline-block;
+        vertical-align: top; 
+    }
+}

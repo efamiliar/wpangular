@@ -1,0 +1,41 @@
+<ul class="breadcrumb">
+    <li>Home</li>
+</ul>
+
+<div class="home">
+
+    <section class="hero">
+        <p>WPAngular is an open source project that aims to help developers find good references, tools and boilerplate code to integrate the amazing WordPress CMS with the amazing Angular framework/platform.</p>
+        <p><b>Source</b>: GitHub</p>
+    </section>
+
+    <section class="posts">
+        <h1>Posts</h1>
+        <ul>
+            <li *ngFor="let post of posts"><a [routerLink]="[post.slug]">{{post.title.rendered}}</a></li>
+        </ul>
+        <p *ngIf="displayMoreButton" (click)="listMorePosts()">More</p>
+    </section>
+
+    <section class="sidebar">
+        <h1>Sidebar</h1>
+        <div class="block"><b>Categories:</b>
+            <ul>
+                <li *ngFor="let category of categories">{{category.id}} - <a [routerLink]="[dynamicGlobals.categoryBase,category.slug]">{{category.name}}</a></li>
+            </ul>
+        </div>
+        
+        <div class="block"><b>Pages:</b>
+            <ul>
+                <li *ngFor="let page of pages">{{page.id}} - <a [routerLink]="[page.slug]">{{page.title.rendered}}</a></li>
+            </ul>
+        </div>
+        
+        <div class="block"><b>Tags:</b>
+            <ul>
+                <li *ngFor="let tag of tags">{{tag.id}} - <a [routerLink]="[dynamicGlobals.tagBase,tag.slug]">{{tag.name}}</a></li>
+            </ul>
+        </div>
+    </section>
+
+</div>

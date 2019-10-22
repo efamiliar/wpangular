@@ -1,0 +1,8 @@
+<ul class="breadcrumb">
+    <li><a [routerLink]="['/']">Home</a></li>
+    <li>Tag</li>
+</ul>
+<ul *ngFor='let post of posts'>
+    <li>{{post.id}} - {{post.title.rendered}}</li>
+</ul>
+<p *ngIf="displayMoreButton" (click)="listMorePostsInTag()">More</p>
