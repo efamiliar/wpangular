@@ -11,3 +11,7 @@ Note that in the example I put "wpangular" as the wordpress theme folder, you ca
 ## Login user
 
 I am working on the login functionality, for which the JWT Authentication plugin is required, since the WordPress REST API does not yet provide a secure way for user authorization.
+
+## License
+
+Both Angular and WordPress are free for everybody. I am sharing this because sharing makes the world a better place. Do whatever you like with this bunch of lines. Also feel free to contribute.
