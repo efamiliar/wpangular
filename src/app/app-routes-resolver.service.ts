@@ -160,14 +160,14 @@ export class RoutesResolver implements Resolve<any>, OnDestroy{
           */
 
           
-          // Save new routes config
+          // Save the new routes config
           this.router.resetConfig(this.router.config);
 
           console.log('Did a new router config with: ', this.router.config);
 
           // For the ROOTSHARED cases, since those routes have a shared structure, we must resolve those everytime
           if(route.url[0]==this.permalinkStructure['tag_base'] || route.url[0]==this.permalinkStructure['category_base']){
-          this.router.navigateByUrl(this.router.routerState.snapshot.url);
+          this.router.navigate([route.url[0].path, route.url[1].path]);
           }else{
           this.manageRootSharedRoutes(route);
           }
@@ -182,6 +182,14 @@ export class RoutesResolver implements Resolve<any>, OnDestroy{
     }
 
 
+    return Observable.create(observer => {
+      setTimeout(() => {
+        observer.next("data to send can be object or anything");
+        console.log("resolver is done");
+        observer.complete(); // to show we are done with our processing
+       // observer.error(new Error("error message"));
+      }, 3000);
+    });
     
   }
 
