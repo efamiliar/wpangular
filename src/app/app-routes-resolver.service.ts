@@ -181,14 +181,12 @@ export class RoutesResolver implements Resolve<any>, OnDestroy{
 
     }
 
-
+    // Force an observable return to allow suscriptions take their time
     return Observable.create(observer => {
       setTimeout(() => {
-        observer.next("data to send can be object or anything");
-        console.log("resolver is done");
-        observer.complete(); // to show we are done with our processing
-       // observer.error(new Error("error message"));
-      }, 3000);
+        console.log("Resolver observable is done");
+        observer.complete();
+      }, 15000);
     });
     
   }
