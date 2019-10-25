@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class DynamicGlobalsService {
+export class DynamicGlobalsService{
 
-  public tagBase: string = 'tag';
-  public categoryBase: string = 'category';
+  public tagBase: string;
+  public categoryBase: string;
   public permalinkStructure: any;
+  public siteName: string;
+  public siteDescription: string; 
 
-  constructor() { }
+  constructor(){}
 }

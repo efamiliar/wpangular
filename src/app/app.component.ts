@@ -85,10 +85,22 @@ export class AppComponent implements OnInit, OnDestroy{
 
   // Get Site Settings
   getSiteInfo(){
-    this.wprestNoAuthSrv.getSiteInfo().pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe((data)=>{
-      this.siteName=data['name'];
-      this.siteDescription=data['description'];
-    });
+
+    // Check if this info is cached on LocalStorage
+    if(localStorage.hasOwnProperty("siteInfo")){
+      let cachedSiteInfo = JSON.parse(localStorage.getItem("siteInfo"));
+      this.dynamicGlobals.siteName=cachedSiteInfo['name'];
+      this.dynamicGlobals.siteDescription=cachedSiteInfo['description'];
+    }else{ // Retrieve it from backend and cache it for next time
+      
+      this.wprestNoAuthSrv.getSiteInfo().pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe((httpResponse)=>{
+        // Save this basic information into localStorage for later use
+        localStorage.setItem("siteInfo",JSON.stringify(httpResponse.body));
+        this.dynamicGlobals.siteName=httpResponse.body['name'];
+        this.dynamicGlobals.siteDescription=httpResponse.body['description'];
+      });
+    }
+
   }
 
 
