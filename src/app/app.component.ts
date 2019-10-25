@@ -24,8 +24,8 @@ export class AppComponent implements OnInit, OnDestroy{
   siteDescription;
 
   constructor(
+    public dynamicGlobals: DynamicGlobalsService,
     private router: Router,
-    private dynamicGlobals: DynamicGlobalsService,
     private wprestNoAuthSrv: WprestNoAuthService,
     private wprestWithAuthSrv: WprestWithAuthService) { }
 
