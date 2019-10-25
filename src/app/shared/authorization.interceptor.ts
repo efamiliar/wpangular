@@ -35,15 +35,14 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         if(requiresAuthToken){
 
             // Check if it's available
-            let authToken = localStorage.getItem("userToken");
-            if(authToken !== null){
+            if(localStorage.hasOwnProperty("userToken")){
 
                 // Token validation is done at app.component ngOnInit
                 req = req.clone({
                     headers: new HttpHeaders({
                     'Content-Type':  'application/json',
                     'Accept':  'application/json',
-                    'Authorization': 'Bearer ' + authToken
+                    'Authorization': 'Bearer ' + localStorage.getItem("userToken")
                     })
                 });
 

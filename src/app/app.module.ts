@@ -10,14 +10,14 @@ import { AppComponent } from './app.component';
 // Cache interceptor
 import { CacheInterceptor } from './shared/cache.interceptor';
 import { AuthorizationInterceptor } from './shared/authorization.interceptor';
-import { DummyComponent } from './dummy/dummy.component';
+import { RoutesDispatcherComponent } from './routes-dispatcher/routes-dispatcher.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DummyComponent
+    RoutesDispatcherComponent
   ],
   imports: [
     BrowserModule,

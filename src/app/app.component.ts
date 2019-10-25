@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { WprestNoAuthService } from './shared/wprest-no-auth.service';
 import { WprestWithAuthService } from './shared/wprest-with-auth.service';
+import { DynamicGlobalsService } from './shared/dynamic-globals.service';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -19,13 +23,68 @@ export class AppComponent implements OnInit, OnDestroy{
   siteDescription;
 
   constructor(
+    private router: Router,
+    private dynamicGlobals: DynamicGlobalsService,
     private wprestNoAuthSrv: WprestNoAuthService,
     private wprestWithAuthSrv: WprestWithAuthService) { }
 
   ngOnInit(){
+
+    // Check if the WP Permalink structure is cached
+    if(localStorage.hasOwnProperty("permalinkStructure")){
+      this.dynamicGlobals.permalinkStructure = JSON.parse(localStorage.getItem("permalinkStructure"));
+      this.setFixedBaseRoutes();
+    }else{
+      // Fetch WP Permalink Structure
+      this.wprestNoAuthSrv.getPermalinkStructure().pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe(        
+        data => { 
+            console.log('Got permalinks form API');
+            this.dynamicGlobals.permalinkStructure = data.body;
+            // Save it into localStorage
+            localStorage.setItem("permalinkStructure",JSON.stringify(this.dynamicGlobals.permalinkStructure));
+            this.setFixedBaseRoutes();
+        });
+    }
+
+
     this.getSiteInfo();
     this.checkAndValidateLogin();
     this.getMainMenu();
+  }
+
+
+  // Add the dynamic routes to the routes
+  setFixedBaseRoutes(){
+    console.log('setRoutes() with this permalink strcuture: ', this.dynamicGlobals.permalinkStructure);
+
+    // Tag base
+    console.log('Tag base: ',this.dynamicGlobals.permalinkStructure['tag_base']);
+    this.dynamicGlobals.tagBase = this.dynamicGlobals.permalinkStructure['tag_base'];
+    this.router.config.unshift({ // Add this path at the beginning of the array to make it take precedence over the catchall
+        path: this.dynamicGlobals.permalinkStructure['tag_base'] + '/:tag',
+        loadChildren: () => import('./view-tag/view-tag.module').then(m => m.ViewTagModule)
+    });
+
+
+    // Category base
+    console.log('Category base: ',this.dynamicGlobals.permalinkStructure['category_base']);
+    this.dynamicGlobals.categoryBase = this.dynamicGlobals.permalinkStructure['category_base'];
+    this.router.config.unshift({ // Add this path at the beginning of the array to make it take precedence over the catchall
+        path: this.dynamicGlobals.permalinkStructure['category_base'] + '/:category',
+        loadChildren: () => import('./view-category/view-category.module').then(m => m.ViewCategoryModule)
+    });
+
+    
+    // Save the new routes config
+    this.router.resetConfig(this.router.config);
+    console.log('Did a new router config with: ', this.router.config);
+
+    /* // For the ROOTSHARED cases, since those routes have a shared structure, we must resolve those everytime
+    if(route.url[0]==this.permalinkStructure['tag_base'] || route.url[0]==this.permalinkStructure['category_base']){
+    this.router.navigate([route.url[0].path, route.url[1].path]);
+    }else{
+    this.manageRootSharedRoutes(route);
+    } */
   }
 
 
@@ -42,9 +101,7 @@ export class AppComponent implements OnInit, OnDestroy{
   checkAndValidateLogin(){
 
     // Check if user token is set in localstorage
-    let authToken = localStorage.getItem("userToken");
-    if (authToken !== null) {
-      console.log('Current token = ' + authToken);
+    if (localStorage.hasOwnProperty("userToken")){
 
       //Check it is a valid token
       this.wprestWithAuthSrv.validateToken().pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe(

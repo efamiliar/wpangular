@@ -2,11 +2,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-// Routes Resolver
-import { RoutesResolver } from './app-routes-resolver.service';
+// Routes dispatcher component
+import { RoutesDispatcherComponent } from './routes-dispatcher/routes-dispatcher.component';
 
-// Home component
-import { DummyComponent } from './dummy/dummy.component';
 
 // Routes with Lazy Load
 const routes: Routes = [
@@ -38,9 +36,8 @@ const routes: Routes = [
 
   // This catchall will always have a meaningful route.url[0]
   {
-    path: '**',
-    component: DummyComponent,
-    resolve: { routing: RoutesResolver}
+  path: '**',
+  component: RoutesDispatcherComponent
   }
 ];
 
