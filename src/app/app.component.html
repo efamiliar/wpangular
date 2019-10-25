@@ -1,12 +1,14 @@
-<nav class="header">
-    <!-- <h1>WordPress Angular Open Source Theme</h1> -->
-    <h1>Angular Http and Advanced Routing</h1>
+<!-- <h1>WordPress Angular Open Source Theme</h1> -->
+<header>
+<h1>Angular Http and Advanced Routing</h1>
+<nav>
     <ul>
         <li *ngFor="let item of mainMenu">
             <a [routerLink]="[item.url]">{{item.title}}</a>
         </li>
     </ul>
 </nav>
+</header>
 <router-outlet></router-outlet>
 <footer>
     wpangular.com

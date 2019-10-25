@@ -23,29 +23,43 @@ color: $color-black;
 }
 
 // Header
-nav{
-display: block;
+header{
+display: grid;
+align-items: center;
+grid-template-columns: 1fr;
 background-color: $color-blue;
 
     h1{
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 0 2rem;
     line-height: 4rem;
     font-size: 2rem;
     color: $color-white;
     }
 
-    ul{
-    float: right;
-    color: #FFF;
-    vertical-align: top;
-    line-height: 3rem;
+    nav{
+    text-align: center;
 
-        li{
-        display: inline-block;
-        padding: 0.4rem;
+        ul{
+        padding: 1rem;
+
+            li{
+            display: inline-block;
+
+                a{
+                display: block;
+                padding: 0.8rem;
+                color: $color-white;
+                border-radius: 0.4rem;
+                }
+
+                a:hover{
+                background-color: lighten($color-blue, 20%);
+                }
+            }
         }
+
     }
 }
 
@@ -175,6 +189,18 @@ color: $color-white;
 }
 
 @media (min-width: 768px){
+
+    header{
+    grid-template-columns: auto 1fr;
+
+        nav{
+        text-align: right;
+
+            ul{
+            padding: 0 2rem 0 0;
+            }
+        }
+    }
 
     .home{
     display: grid;
