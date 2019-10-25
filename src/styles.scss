@@ -65,14 +65,8 @@ background-color: $color-black;
 
 // Home
 .home{
-display: grid;
-grid-template-columns: 3fr  1fr;
-grid-template-areas: 
-"hero hero"
-"posts sidebar";
 
     .hero{
-    grid-area: hero;
     padding: 2rem;
     background-color: $color-grey;
     
@@ -86,13 +80,11 @@ grid-template-areas:
     }
 
     .posts{
-    grid-area: posts;
     padding: 2rem;
     background-color: lighten($color-grey, 5%);
     }
 
     .sidebar{
-    grid-area: sidebar;
     padding: 2rem;
     background-color: lighten($color-grey, 10%);
 
@@ -174,4 +166,28 @@ display: block;
 padding: 2rem;
 background-color: $color-black;
 color: $color-white;
+}
+
+@media (min-width: 768px){
+
+    .home{
+    display: grid;
+    grid-template-columns: [home_left] 3fr [home_between] 1fr [home_right];
+
+        .hero{
+        grid-column-start: home_left;
+        grid-column-end: home_right;
+        }
+
+        .posts{
+        grid-column-start: home_left;
+        grid-column-end: home_between;
+        }
+    
+        .sidebar{
+        grid-column-start: home_between;
+        grid-column-end: home_right;
+        }
+    }
+
 }

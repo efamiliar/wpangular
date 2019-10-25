@@ -8,15 +8,11 @@ import { RoutesDispatcherComponent } from './routes-dispatcher/routes-dispatcher
 
 // Routes with Lazy Load
 const routes: Routes = [
-
-  // Catch home here so the catchall will always have a meaningful route.url[0]
   {
   path: '',
   pathMatch: 'full',
   loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
-
-  // Common predefined routes that won't change
   {
   path: 'login',
   loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
@@ -34,7 +30,7 @@ const routes: Routes = [
   loadChildren: () => import('./view-page/view-page.module').then(m => m.ViewPageModule)
   },
 
-  // This catchall will always have a meaningful route.url[0]
+  // Catchall route that will be handled by RoutesDispatcherComponent
   {
   path: '**',
   component: RoutesDispatcherComponent
