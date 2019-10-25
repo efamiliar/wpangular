@@ -48,8 +48,8 @@ export class AppComponent implements OnInit, OnDestroy{
 
 
     this.getSiteInfo();
-    this.checkAndValidateLogin();
     this.getMainMenu();
+    this.checkAndValidateLogin(); 
   }
 
 
@@ -78,13 +78,7 @@ export class AppComponent implements OnInit, OnDestroy{
     // Save the new routes config
     this.router.resetConfig(this.router.config);
     console.log('Did a new router config with: ', this.router.config);
-
-    /* // For the ROOTSHARED cases, since those routes have a shared structure, we must resolve those everytime
-    if(route.url[0]==this.permalinkStructure['tag_base'] || route.url[0]==this.permalinkStructure['category_base']){
-    this.router.navigate([route.url[0].path, route.url[1].path]);
-    }else{
-    this.manageRootSharedRoutes(route);
-    } */
+    
   }
 
 
@@ -123,8 +117,9 @@ export class AppComponent implements OnInit, OnDestroy{
   // Get Main Menu
   getMainMenu(){
     this.wprestNoAuthSrv.getMenuAtLocation('main_menu').pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe(
-      data=>{
-      this.mainMenu=data['items'];
+      httpResponse=>{
+      this.mainMenu=httpResponse.body['items'];
+      console.log('Menu: ', this.mainMenu);
       },
       error=>{
       console.log(error);  

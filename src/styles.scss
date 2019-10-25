@@ -37,9 +37,15 @@ background-color: $color-blue;
     }
 
     ul{
-    display: inline-block;
+    float: right;
+    color: #FFF;
     vertical-align: top;
     line-height: 3rem;
+
+        li{
+        display: inline-block;
+        padding: 0.4rem;
+        }
     }
 }
 
