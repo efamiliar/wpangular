@@ -1,7 +1,11 @@
 <nav class="header">
     <!-- <h1>WordPress Angular Open Source Theme</h1> -->
     <h1>Angular Http and Advanced Routing</h1>
-    <ul *ngFor="let item of mainMenu"><li>{{item.title}}</li></ul>
+    <ul>
+        <li *ngFor="let item of mainMenu">
+            <a [routerLink]="[item.url]">{{item.title}}</a>
+        </li>
+    </ul>
 </nav>
 <router-outlet></router-outlet>
 <footer>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { WprestNoAuthService } from './shared/wprest-no-auth.service';
 import { WprestWithAuthService } from './shared/wprest-with-auth.service';
 import { DynamicGlobalsService } from './shared/dynamic-globals.service';
+import { ConstantGlobals } from './shared/constant-globals';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -118,13 +119,34 @@ export class AppComponent implements OnInit, OnDestroy{
   getMainMenu(){
     this.wprestNoAuthSrv.getMenuAtLocation('main_menu').pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe(
       httpResponse=>{
-      this.mainMenu=httpResponse.body['items'];
-      console.log('Menu: ', this.mainMenu);
+      this.mainMenu=this.reMapMenu(httpResponse.body['items']);
       },
       error=>{
       console.log(error);  
       });
   }
+
+  // Re-Map Menu links to strip WP_ROOT_URL (http://...) from internal urls
+  reMapMenu(menuItems){
+
+    // Remove the WP_ROOT_URL from the internal urls
+    menuItems.map((item) => {
+
+      if(item.url.includes(ConstantGlobals.WP_ROOT_URL)){
+        console.log(item.url + ' is an internal URL');
+        item.url = item.url.replace(ConstantGlobals.WP_ROOT_URL+'/','');
+      }else{
+        console.log(item.url + ' is an external URL');
+      }
+
+      return item;
+
+    });
+
+    return menuItems;
+
+  }
+  
 
   ngOnDestroy() {
     // Unsubscribe from suscriptions
