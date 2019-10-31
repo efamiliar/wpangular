@@ -12,12 +12,17 @@
     <section class="posts">
         <h1>Posts</h1>
         <ul>
-            <li *ngFor="let post of posts"><a [routerLink]="[post.slug]">{{post.title.rendered}}</a></li>
+            <li *ngFor="let post of posts">
+                <a [routerLink]="[post.slug]">
+                    <img *ngIf="post.featured_img_url" [src]="post.featured_img_url">
+                    {{post.title.rendered}}
+                </a>
+            </li>
         </ul>
         <p *ngIf="displayMoreButton" (click)="listMorePosts()">More</p>
     </section>
 
-    <section class="sidebar">
+    <section class="sitemap">
         <h1>Sidebar</h1>
         <div class="block"><b>Categories:</b>
             <ul>

@@ -1,6 +1,9 @@
+<h1>Login</h1>
+<p>This is a very basic implementation of the WordPress login feature. Please note that JWT Authentication plugin is required.</p>
+
 <form *ngIf="userToken === null">
     <input name="username" type="text" [(ngModel)]="username">
-    <input name="password" type="text" [(ngModel)]="password">
+    <input name="password" type="password" [(ngModel)]="password">
     <button (click)="doLogin()">Go</button>
 </form>
 

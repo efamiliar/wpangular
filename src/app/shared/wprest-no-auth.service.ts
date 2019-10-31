@@ -55,7 +55,7 @@ export class WprestNoAuthService {
   // MENU (special custom post type)
 
   getMenuAtLocation(slug){
-    return this.httpClient.get(ConstantGlobals.WP_API_BASE + '/menus/v1/locations/'+slug, {observe: 'response'});
+    return this.httpClient.get(ConstantGlobals.WP_API_BASE + '/wpangular/v1/menus/location/'+slug, {observe: 'response'});
   }
 
 
