@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Components that will be used by this module
 import { LogoutComponent } from './logout.component';
+import { SharedModule } from '../shared/shared-module/shared.module';
 
 // Child routes
 import { routes } from './logout-routing.module';
@@ -16,7 +17,8 @@ import { routes } from './logout-routing.module';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ]
 })
 export class LogoutModule { }

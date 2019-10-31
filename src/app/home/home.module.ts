@@ -6,8 +6,10 @@ import { CommonModule } from '@angular/common';
 // Components that will be used by this module
 import { HomeComponent } from './home.component';
 
+
 // Child routes
 import { routes } from './home-routing.module';
+import { SharedModule } from '../shared/shared-module/shared.module';
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { routes } from './home-routing.module';
     HomeComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes)
   ]

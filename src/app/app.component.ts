@@ -19,9 +19,6 @@ export class AppComponent implements OnInit, OnDestroy{
   private unsubscribeOnDestroy: Subject<void> = new Subject();
   
   title = 'app';
-  mainMenu;
-  siteName;
-  siteDescription;
 
   constructor(
     public dynamicGlobals: DynamicGlobalsService,
@@ -30,6 +27,15 @@ export class AppComponent implements OnInit, OnDestroy{
     private wprestWithAuthSrv: WprestWithAuthService) { }
 
   ngOnInit(){
+    this.getSiteInfo();
+    this.getPermalinksStructure();
+    this.getMainMenu();
+    this.checkAndValidateLogin(); 
+  }
+
+
+  // Get Permalinks Structure
+  getPermalinksStructure(){
 
     // Check if the WP Permalink structure is cached
     if(localStorage.hasOwnProperty("permalinkStructure")){
@@ -47,14 +53,10 @@ export class AppComponent implements OnInit, OnDestroy{
         });
     }
 
-
-    this.getSiteInfo();
-    this.getMainMenu();
-    this.checkAndValidateLogin(); 
   }
 
 
-  // Add the dynamic routes to the routes
+  // Add the dynamic routes to the routes [this function will be called from getPermalinksStructure() when data is ready]
   setFixedBaseRoutes(){
     console.log('setRoutes() with this permalink strcuture: ', this.dynamicGlobals.permalinkStructure);
 
@@ -83,7 +85,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
 
-  // Get Site Settings
+  // Get Site Information (name and description)
   getSiteInfo(){
 
     // Check if this info is cached on LocalStorage
@@ -104,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
 
-  // Check if there is a token and see if it is valid
+  // Check if there is a token (from previous JWT Authentication) and see if it is valid
   checkAndValidateLogin(){
 
     // Check if user token is set in localstorage
@@ -129,13 +131,25 @@ export class AppComponent implements OnInit, OnDestroy{
 
   // Get Main Menu
   getMainMenu(){
+
+    // Check if the Menu is cached on LocalStorage
+    if(localStorage.hasOwnProperty("mainMenu")){
+      let cachedMenu = JSON.parse(localStorage.getItem("mainMenu"));
+      this.dynamicGlobals.mainMenu = this.reMapMenu(cachedMenu);
+    }else{ // Retrieve it from backend and cache it for next time
+
     this.wprestNoAuthSrv.getMenuAtLocation('main_menu').pipe(takeUntil(this.unsubscribeOnDestroy)).subscribe(
       httpResponse=>{
-      this.mainMenu=this.reMapMenu(httpResponse.body['items']);
+        // Save menu into localStorage for later use
+        localStorage.setItem("mainMenu",JSON.stringify(httpResponse.body['items']));
+        this.dynamicGlobals.mainMenu=this.reMapMenu(httpResponse.body['items']);
       },
       error=>{
-      console.log(error);  
+        console.log(error);  
       });
+    
+    }
+
   }
 
   // Re-Map Menu links to strip WP_ROOT_URL (http://...) from internal urls

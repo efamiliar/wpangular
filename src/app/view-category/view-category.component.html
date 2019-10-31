@@ -1,7 +1,4 @@
-<ul class="breadcrumb">
-    <li><a [routerLink]="['/']">Home</a></li>
-    <li>Category</li>
-</ul>
+<app-navigation></app-navigation>
 <ul *ngFor='let post of posts'>
     <li>{{post.id}} - {{post.title.rendered}}</li>
 </ul>

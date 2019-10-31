@@ -1,8 +1,5 @@
+<app-navigation></app-navigation>
 <div *ngIf="page !== undefined">
-    <ul class="breadcrumb">
-        <li><a [routerLink]="['/']">Home</a></li>
-        <li [innerHTML]="page.title.rendered"></li>
-    </ul>
     <article class="post">
         <h1 [innerHTML]="page.title.rendered"></h1>
     </article>

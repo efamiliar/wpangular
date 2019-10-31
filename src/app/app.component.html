@@ -1,9 +1,8 @@
 <header>
-<!-- <h1 [innerHTML]="dynamicGlobals.siteName"></h1> -->
-<h1>Angular HTTP Communications</h1>
+<h1 [innerHTML]="dynamicGlobals.siteName"></h1>
 <nav>
     <ul>
-        <li *ngFor="let item of mainMenu">
+        <li *ngFor="let item of dynamicGlobals.mainMenu">
             <a [routerLink]="[item.url]">{{item.title}}</a>
         </li>
     </ul>

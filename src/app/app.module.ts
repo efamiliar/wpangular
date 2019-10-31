@@ -13,7 +13,6 @@ import { AuthorizationInterceptor } from './shared/authorization.interceptor';
 import { RoutesDispatcherComponent } from './routes-dispatcher/routes-dispatcher.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

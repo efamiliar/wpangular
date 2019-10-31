@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Components that will be used by this module
 import { ViewPageComponent } from './view-page.component';
+import { SharedModule } from '../shared/shared-module/shared.module';
 
 // Child routes
 import { routes } from './view-page-routing.module';
@@ -16,7 +17,8 @@ import { routes } from './view-page-routing.module';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ]
 })
 export class ViewPageModule { }
