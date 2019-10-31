@@ -1,10 +1,22 @@
+// Colors
 $color-blue: #0077c8;
 $color-darkblue: #00205b;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-grey: #d7d7d8;
 
+// Fonts
 $font-roboto: 'Roboto', sans-serif;
+
+/*
+
+About this CSS file:
+
+Mobile-First approach with breakpoints at 768px
+
+*/
+
+//#region [Defaults]
 
 body{
 margin: 0;
@@ -22,7 +34,10 @@ text-decoration: none;
 color: $color-black;
 }
 
-// Header
+//#endregion
+
+//#region [Header]
+
 header{
 display: grid;
 align-items: center;
@@ -63,7 +78,9 @@ background-color: $color-blue;
     }
 }
 
-// Breadcrumb
+//#endregion
+
+//#region [Breadcrumb]
 .breadcrumb{
 display: block;
 padding-left: 2rem;
@@ -82,8 +99,9 @@ background-color: $color-black;
         }
     }
 }
+//#endregion
 
-// Home
+//#region [Home]
 .home{
 
     .hero{
@@ -105,26 +123,62 @@ background-color: $color-black;
     }
 
     .sitemap{
+    display: grid;
+    grid-template-columns: [sitemap_left] 1fr 1fr [sitemap_middle] 1fr 1fr [sitemap_right];
+    row-gap: 1rem;
+    column-gap: 1rem;
     padding: 2rem;
     background-color: lighten($color-grey, 10%);
 
         .block{
-        margin: 1rem 0;
+        display: block;
+        
+            ul{
+            margin-top: 0.5rem;
+            list-style-type: none;
+
+                li{
+                display: block;
+                margin-bottom: 0.2rem;
+
+                    a{
+                    display: block;
+                    padding: 0.6rem;
+                    background-color: #FFF;
+                    }
+                }
+            }
+
         }
 
-        ul{
-        margin-top: 0.5rem;
-        list-style-type: none;
+        h1{
+        grid-row-start: 1;
+        grid-column-start: sitemap_left;
+        grid-column-end: sitemap_right;
+        }
 
-            li{
-            display: block;
-            }
+        .categories{
+        grid-row-start: 2;
+        grid-column-start: sitemap_left;
+        grid-column-end: sitemap_middle;
+        }
+
+        .tags{
+        grid-row-start: 2;
+        grid-column-start: sitemap_middle;
+        grid-column-end: sitemap_right;
+        }
+
+        .pages{
+        grid-row-start: 3;
+        grid-column-start: sitemap_left;
+        grid-column-end: sitemap_right;
         }
     }
 }
+//#endregion
 
-
-// Posts list
+//#region [Posts list]
 .posts{
 
     h1{
@@ -162,9 +216,9 @@ background-color: $color-black;
     }
 
 }
+//#endregion
 
-
-// Single Post
+//#region [Single Post]
 .post{
 display: grid;
 grid-template-columns: [post_left] 1fr 1fr 1fr [post_middle] 1fr 1fr 1fr [post_right];
@@ -200,16 +254,18 @@ grid-template-columns: [post_left] 1fr 1fr 1fr [post_middle] 1fr 1fr 1fr [post_r
     grid-column-end: post_right;
     }
 }
-    
+//#endregion   
 
-// Footer
+//#region [Footer]
 footer{
 display: block;
 padding: 2rem;
 background-color: $color-black;
 color: $color-white;
 }
+//#endregion
 
+//#region [BREAKPOINT 768px]
 @media (min-width: 768px){
 
     header{
@@ -239,6 +295,7 @@ color: $color-white;
         }
     
         .sitemap{
+        display: block;
         grid-column-start: home_between;
         grid-column-end: home_right;
         }
@@ -261,3 +318,18 @@ color: $color-white;
     }
 
 }
+//#endregion
+
+//#region [BREAKPOINT 1000px]
+@media (min-width: 1000px){
+
+    .home{
+    grid-template-columns: [home_left] 1fr [home_between] 1fr [home_right];
+    
+        .sitemap{
+        display: grid;
+        }
+    }
+
+}
+//#endregion

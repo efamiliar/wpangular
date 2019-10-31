@@ -23,24 +23,27 @@
     </section>
 
     <section class="sitemap">
-        <h1>Sidebar</h1>
-        <div class="block"><b>Categories:</b>
+
+        <h1>Sitemap</h1>
+
+        <div class="block categories"><b>Categories:</b>
             <ul>
-                <li *ngFor="let category of categories">{{category.id}} - <a [routerLink]="[dynamicGlobals.categoryBase,category.slug]">{{category.name}}</a></li>
+                <li *ngFor="let category of categories"><a [routerLink]="[dynamicGlobals.categoryBase,category.slug]">{{category.name}}</a></li>
+            </ul>
+        </div>
+
+        <div class="block tags"><b>Tags:</b>
+            <ul>
+                <li *ngFor="let tag of tags"><a [routerLink]="[dynamicGlobals.tagBase,tag.slug]">{{tag.name}}</a></li>
             </ul>
         </div>
         
-        <div class="block"><b>Pages:</b>
+        <div class="block pages"><b>Pages:</b>
             <ul>
-                <li *ngFor="let page of pages">{{page.id}} - <a [routerLink]="[page.slug]">{{page.title.rendered}}</a></li>
+                <li *ngFor="let page of pages"><a [routerLink]="[page.slug]">{{page.title.rendered}}</a></li>
             </ul>
         </div>
         
-        <div class="block"><b>Tags:</b>
-            <ul>
-                <li *ngFor="let tag of tags">{{tag.id}} - <a [routerLink]="[dynamicGlobals.tagBase,tag.slug]">{{tag.name}}</a></li>
-            </ul>
-        </div>
     </section>
 
 </div>

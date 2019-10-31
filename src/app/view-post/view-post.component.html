@@ -4,10 +4,11 @@
 </ul>
 <div class="post">
     <article>
+        <figure><img *ngIf="post.featured_img_url" [src]="post.featured_img_url"></figure>
         <h1 [innerHTML]="post.title.rendered"></h1>
         <div [innerHTML]="post.content.rendered"></div>
     </article>
     <aside>
-        A
+        Aside
     </aside>
 </div>
