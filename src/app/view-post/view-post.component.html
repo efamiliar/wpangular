@@ -3,6 +3,9 @@
     <li [innerHTML]="post.title.rendered"></li>
 </ul>
 <div class="post">
+    <section>
+        Section
+    </section>
     <article>
         <figure><img *ngIf="post.featured_img_url" [src]="post.featured_img_url"></figure>
         <h1 [innerHTML]="post.title.rendered"></h1>
